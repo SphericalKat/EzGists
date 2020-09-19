@@ -12,7 +12,6 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.launchInComposition
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.firebase.auth.FirebaseAuth
@@ -47,7 +46,7 @@ fun HomePage() {
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth().padding(end = 8.dp)
           ) {
-            Text(text = "My Gists")
+            Text(text = "My Gists", color = vividPink)
             Text(text = FirebaseAuth.getInstance().currentUser?.displayName.toString())
           }
         },
@@ -66,20 +65,21 @@ fun HomePage() {
         }
 
         is Loading -> {
-          Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Column(
-              modifier = Modifier.fillMaxHeight(),
-              horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-              Box(modifier = Modifier.fillMaxSize(), gravity = ContentGravity.Center) {
-                CircularProgressIndicator(modifier = Modifier.wrapContentWidth(CenterHorizontally), color = vividPink)
-              }
-            }
+          Box(modifier = Modifier.fillMaxSize(), gravity = ContentGravity.Center) {
+            CircularProgressIndicator(
+              modifier = Modifier.wrapContentWidth(Alignment.CenterHorizontally),
+              color = vividPink
+            )
           }
         }
 
         is Error -> {
-
+          Box(modifier = Modifier.fillMaxSize(), gravity = ContentGravity.Center) {
+            Text(
+              modifier = Modifier.wrapContentWidth(Alignment.CenterHorizontally),
+              text = "Something went wrong!"
+            )
+          }
         }
       }
     }

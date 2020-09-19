@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
-        primary = darkPurple,
-        primaryVariant = darkPurple,
+        primary = vividPink,
+        primaryVariant = vividPink,
         secondary = lightPurple,
         background = darkPurple,
         onPrimary = Color.White,

@@ -1,5 +1,8 @@
 package com.rithikjain.projectgists.models
 
+import androidx.annotation.Keep
+
+@Keep
 data class GistResponse(
   val url: String,
   val forksURL: String,

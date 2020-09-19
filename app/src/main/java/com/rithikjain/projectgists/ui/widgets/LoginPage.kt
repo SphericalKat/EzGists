@@ -2,13 +2,18 @@ package com.rithikjain.projectgists.ui.widgets
 
 import android.app.Activity
 import android.util.Log
-import android.widget.Toast
+import androidx.compose.foundation.Box
+import androidx.compose.foundation.ContentGravity
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.datastore.DataStore
 import androidx.datastore.preferences.Preferences
 import androidx.datastore.preferences.edit
@@ -17,6 +22,7 @@ import com.google.firebase.auth.OAuthCredential
 import com.google.firebase.auth.OAuthProvider
 import com.rithikjain.projectgists.ui.activities.DataStoreAmbient
 import com.rithikjain.projectgists.ui.activities.MainActivityAmbient
+import com.rithikjain.projectgists.ui.themes.vividPink
 import com.rithikjain.projectgists.utils.Constants
 import kotlinx.coroutines.runBlocking
 
@@ -31,13 +37,18 @@ fun LoginPage(onLoggedIn: () -> Unit) {
   Scaffold(
     topBar = {
       TopAppBar(
-        { Text(text = "Login") },
+        { Text(text = "Login", color = vividPink) },
         backgroundColor = MaterialTheme.colors.background
       )
     },
     bodyContent = {
-      Button(onClick = handleLogin(onLoggedIn, activity, dataStore)) {
-        Text(text = "Login")
+      Box(modifier = Modifier.fillMaxSize(), gravity = ContentGravity.Center) {
+        Button(
+          modifier = Modifier.wrapContentWidth(Alignment.CenterHorizontally),
+          onClick = handleLogin(onLoggedIn, activity, dataStore)
+        ) {
+          Text(text = "Login")
+        }
       }
     }
   )
