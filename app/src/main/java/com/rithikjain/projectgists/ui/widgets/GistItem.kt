@@ -18,7 +18,7 @@ import com.rithikjain.projectgists.ui.themes.lightPurple
 import com.rithikjain.projectgists.ui.themes.vividPink
 
 @Composable
-fun GistItem(title: String, body: String) {
+fun GistItem(title: String, body: String?) {
   Card(
     Modifier.fillMaxWidth().padding(start = 8.dp, end = 8.dp, top = 8.dp),
     backgroundColor = lightPurple,
@@ -33,7 +33,7 @@ fun GistItem(title: String, body: String) {
         style = MaterialTheme.typography.h6.copy(color = vividPink)
       )
       Text(
-        text = body,
+        text = if (body.isNullOrBlank()) "No description" else body,
         modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
         fontWeight = FontWeight(350),
       )
@@ -45,6 +45,6 @@ fun GistItem(title: String, body: String) {
 @Composable
 fun ItemPreview() {
   EzGistsTheme {
-    GistItem(title = "Hi there", body = "lorem ipsum")
+    GistItem(title = "Hi there", body = null)
   }
 }
