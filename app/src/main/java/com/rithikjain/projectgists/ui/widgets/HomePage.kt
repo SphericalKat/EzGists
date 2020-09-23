@@ -14,6 +14,7 @@ import androidx.compose.runtime.launchInComposition
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.ui.tooling.preview.Preview
 import com.google.firebase.auth.FirebaseAuth
 import com.rithikjain.projectgists.models.Error
 import com.rithikjain.projectgists.models.GistResponse
@@ -21,6 +22,7 @@ import com.rithikjain.projectgists.models.Loading
 import com.rithikjain.projectgists.models.Success
 import com.rithikjain.projectgists.ui.activities.DataStoreAmbient
 import com.rithikjain.projectgists.ui.activities.ViewModelAmbient
+import com.rithikjain.projectgists.ui.themes.EzGistsTheme
 import com.rithikjain.projectgists.ui.themes.vividPink
 import com.rithikjain.projectgists.utils.Constants
 import kotlinx.coroutines.flow.collect
@@ -31,6 +33,8 @@ import kotlinx.coroutines.flow.map
 fun HomePage() {
   val vm = ViewModelAmbient.current
   val datastore = DataStoreAmbient.current
+  val user = FirebaseAuth.getInstance().currentUser
+
   launchInComposition {
     datastore.data.map { it[Constants.ACCESS_TOKEN].toString() }.collect { token ->
       vm.getGists("token $token")
@@ -44,10 +48,13 @@ fun HomePage() {
         {
           Row(
             horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth().padding(end = 8.dp)
           ) {
             Text(text = "My Gists", color = vividPink)
-            Text(text = FirebaseAuth.getInstance().currentUser?.displayName.toString())
+            if (user != null) {
+              NetworkImage(url = user.photoUrl.toString())
+            }
           }
         },
         backgroundColor = MaterialTheme.colors.background
@@ -84,4 +91,12 @@ fun HomePage() {
       }
     }
   )
+}
+
+@Preview
+@Composable
+fun PreviewApp() {
+  EzGistsTheme {
+    HomePage()
+  }
 }
