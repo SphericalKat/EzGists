@@ -2,19 +2,19 @@ package com.rithikjain.projectgists.ui.widgets
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import androidx.compose.foundation.Box
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.ContentGravity
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredSizeIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ImageAsset
 import androidx.compose.ui.graphics.asImageAsset
-import androidx.compose.ui.graphics.drawscope.drawCanvas
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.unit.dp
@@ -33,7 +33,7 @@ fun NetworkImage(
 
   onCommit(url) {
     val glide = Glide.with(context)
-    val target = object: CustomTarget<Bitmap>() {
+    val target = object : CustomTarget<Bitmap>() {
       override fun onLoadCleared(placeholder: Drawable?) {
         image = null
         drawable = placeholder
@@ -64,15 +64,16 @@ fun NetworkImage(
     // Box composable to have a max height of 200dp and fill out the entire available
     // width.
     Box(
-      modifier = modifier.clip(RoundedCornerShape(50)),
-      gravity = ContentGravity.Center,
+      modifier.clip(RoundedCornerShape(50)),
+      alignment = Alignment.Center,
     ) {
       // Image is a pre-defined composable that lays out and draws a given [ImageAsset].
       Image(asset = theImage)
     }
+
   } else if (theDrawable != null) {
     Canvas(modifier = modifier) {
-      drawCanvas { canvas, _ ->
+      drawIntoCanvas { canvas ->
         theDrawable.draw(canvas.nativeCanvas)
       }
     }

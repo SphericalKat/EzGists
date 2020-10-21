@@ -2,20 +2,23 @@ package com.rithikjain.projectgists.ui.widgets
 
 import androidx.compose.foundation.Box
 import androidx.compose.foundation.ContentGravity
+import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.launchInComposition
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.loadImageResource
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.google.firebase.auth.FirebaseAuth
+import com.rithikjain.projectgists.R
 import com.rithikjain.projectgists.models.Error
 import com.rithikjain.projectgists.models.GistResponse
 import com.rithikjain.projectgists.models.Loading
@@ -57,7 +60,7 @@ fun HomePage() {
             }
           }
         },
-        backgroundColor = MaterialTheme.colors.background
+        backgroundColor = MaterialTheme.colors.background,
       )
     },
     bodyContent = {
@@ -88,6 +91,11 @@ fun HomePage() {
             )
           }
         }
+      }
+    },
+    floatingActionButton = {
+      FloatingActionButton(onClick = {}, backgroundColor = MaterialTheme.colors.primary) {
+        Icon(asset = Icons.Filled.Add)
       }
     }
   )
