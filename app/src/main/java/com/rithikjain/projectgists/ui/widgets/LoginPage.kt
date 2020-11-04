@@ -2,9 +2,8 @@ package com.rithikjain.projectgists.ui.widgets
 
 import android.app.Activity
 import android.util.Log
-import androidx.compose.foundation.Box
-import androidx.compose.foundation.ContentGravity
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.Button
@@ -42,7 +41,7 @@ fun LoginPage(onLoggedIn: () -> Unit) {
       )
     },
     bodyContent = {
-      Box(modifier = Modifier.fillMaxSize(), gravity = ContentGravity.Center) {
+      Box(modifier = Modifier.fillMaxSize(), alignment = Alignment.Center) {
         Button(
           modifier = Modifier.wrapContentWidth(Alignment.CenterHorizontally),
           onClick = handleLogin(onLoggedIn, activity, dataStore)
