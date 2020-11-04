@@ -10,6 +10,10 @@ import androidx.compose.ui.platform.setContent
 import androidx.datastore.DataStore
 import androidx.datastore.preferences.Preferences
 import androidx.datastore.preferences.createDataStore
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.ui.tooling.preview.Preview
 import com.google.firebase.auth.FirebaseAuth
 import com.rithikjain.projectgists.ui.themes.EzGistsTheme
@@ -45,18 +49,11 @@ class MainActivity : AppCompatActivity() {
 
 @Composable
 fun EzGistsApp() {
-  val page =
-    remember { mutableStateOf(if (FirebaseAuth.getInstance().currentUser != null) "home" else "login") }
-  when (page.value) {
-    "login" -> {
-      LoginPage(onLoggedIn = {
-        page.value = "home"
-      })
-    }
-
-    "home" -> {
-      HomePage()
-    }
+  val navController = rememberNavController()
+  val startDestination = if (FirebaseAuth.getInstance().currentUser != null) "home" else "login"
+  NavHost(navController = navController, startDestination = startDestination) {
+    composable("login") { LoginPage(onLoggedIn = { navController.navigate("home") }) }
+    composable("home") { HomePage() }
   }
 }
 

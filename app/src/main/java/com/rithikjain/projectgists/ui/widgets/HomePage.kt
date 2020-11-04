@@ -10,7 +10,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.launchInComposition
+import androidx.compose.runtime.LaunchedTask
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.imageResource
@@ -38,7 +38,7 @@ fun HomePage() {
   val datastore = DataStoreAmbient.current
   val user = FirebaseAuth.getInstance().currentUser
 
-  launchInComposition {
+  LaunchedTask {
     datastore.data.map { it[Constants.ACCESS_TOKEN].toString() }.collect { token ->
       vm.getGists("token $token")
     }
